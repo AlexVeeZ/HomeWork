@@ -31,6 +31,12 @@ public class SimpleAuthService implements AuthService {
         users.add(new UserData("1111@mail.ru","1111","Лелик"));
         users.add(new UserData("2222@mail.ru","2222","Болик"));
     }
+
+    @Override
+    public String getNicknameByLoginAndPassword(String login, String password) {
+        return null;
+    }
+
     //метод осуществляет проверку всех клиентов в листе на совпадение введенного логина и пароля,
     //в случае корректного ввода возвращает nickname
     @Override
@@ -61,5 +67,10 @@ public class SimpleAuthService implements AuthService {
 
 
 
+    }
+
+    @Override
+    public boolean changeNick(String previousNick, String newNick) {
+        return false;
     }
 }

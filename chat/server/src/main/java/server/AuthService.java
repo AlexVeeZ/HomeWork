@@ -3,13 +3,13 @@ package server;
 public interface AuthService {
 
 
-    /**
-     *  данный метод возвращает null ,если нет совпадений по логину и паролю
-     *   возвращает nickname ,если есть совпадение.
-     **/
+    String getNicknameByLoginAndPassword(String login, String password);
+
     String getNickByLoginAndPassword(String login, String password);
 
     boolean registration(String login, String password, String nickname);
+
+    boolean changeNick(String previousNick, String newNick);
 
 
 }

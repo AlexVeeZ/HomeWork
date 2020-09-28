@@ -55,6 +55,9 @@ public class ClientHandler {
                                         sendMsg("/authok "+nickname);
                                         server.subscribe(this);
                                         System.out.println("Клиент "+nickname+" подключился");
+
+                                        sendMsg(SQLHandler.getMessageForNick(nickname));
+
                                         break;
                                     }else {
                                         sendMsg("Аутентификация уже пройдена, " +
@@ -105,6 +108,29 @@ public class ClientHandler {
                                         continue;
                                     }
                                     server.privateMsg(this, token[1], token[2]);
+
+                                    if (str.startsWith("/chnick")){
+                                        String[] tken = str.split(" ",2);
+                                        if(tken.length<2){
+                                            continue;
+                                        }
+                                        if ((tken[1].contains(" "))) {
+                                            sendMsg("Ник не может содержать пробелов");
+                                            continue;
+                                        }
+                                        if (server.getAuthService().changeNick(this.nickname, tken[1])){
+                                            sendMsg("/yournickis " + tken[1]);
+                                            sendMsg("Твой новый ник: " + tken[1]);
+                                            this.nickname = tken[1];
+                                            server.broadcastClientList();
+                                        }else{
+                                            sendMsg("Ник "+tken[1] + " уже существует");
+                                        }
+                                    }
+
+
+
+
                                 }
 
                             }else{

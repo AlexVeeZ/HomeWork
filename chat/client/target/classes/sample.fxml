@@ -4,7 +4,7 @@
 <VBox fx:controller="client.Controller"
       xmlns:fx="http://javafx.com/fxml" alignment="center">
     <stylesheets>
-        <URL value="@/client/style.css"/>
+        <URL value="@/style.css"/>
     </stylesheets>
 
     <HBox fx:id="authPanel" visible="true" managed="true">

@@ -196,12 +196,15 @@ public class Controller implements Initializable {
                                         for (int i = 1; i < token.length; i++) {
                                             clientList.getItems().add(token[i]);
                                         }
-
-
-
                                     });
-
                                 }
+                                if (str.startsWith("/yournickis ")){
+                                    nickname = str.split(" ")[1];
+                                    setTitle(nickname);
+                                }
+
+
+
                             }else{
                                 //вывод сообщения в textArea
                                 textArea.appendText(str+"\n");

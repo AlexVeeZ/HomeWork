@@ -28,7 +28,11 @@ public class Server {
         clients = new Vector<>();
 
         //реализуем интерфейс AuthService
-        authService = new SimpleAuthService();
+        //authService = new SimpleAuthService();
+        if (!SQLHandler.connect()) {
+            throw new RuntimeException("Не удалось подключиться к БД");
+        }
+        authService = new DBAuthService();
 
         try{
             //привязываем номер порта к серверному сокету
@@ -53,6 +57,7 @@ public class Server {
         }catch (IOException e){
             e.printStackTrace();
         }finally {
+            SQLHandler.disconnect();
             try {
                 socket.close();
             } catch (IOException e) {
@@ -72,6 +77,8 @@ public class Server {
         format.format(date);
 
         String message = String.format(" %s %s : %s",format.format(date), sender.getNickname(), msg);
+        SQLHandler.addMessage(sender.getNickname(),"null",msg, format.format(new Date()));
+
         //итератор пробегается по всем клиентам и рассыллает сообщение
         for (ClientHandler client : clients) {
             client.sendMsg(message);
@@ -100,6 +107,9 @@ public class Server {
         for (ClientHandler client : clients) {
             if(client.getNickname().equals(receiver)){
                 client.sendMsg(message);
+
+                SQLHandler.addMessage(sender.getNickname(),receiver,msg,">>>");
+
                 if(!client.equals(sender)) {
                     sender.sendMsg(message);
                 }
@@ -121,7 +131,7 @@ public class Server {
         return false;
 
     }
-    private void broadcastClientList(){
+    void broadcastClientList(){
         StringBuilder sb = new StringBuilder("/clientlist ");
         for (ClientHandler c : clients) {
             sb.append(c.getNickname()).append(" ");
