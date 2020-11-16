@@ -1,0 +1,14 @@
+.button{
+    -fx-background-color: orange;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+}
+#myTextArea{
+    -fx-background-color: orange;
+    -fx-highlight-fill: orange;
+    -fx-font-weight: bold;
+}
+
+#myTextField{
+
+}
