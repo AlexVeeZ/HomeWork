@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">My Application_1</string>
+    <string name="c">°C</string>
+    <string name="_25">+25</string>
+    <string name="textview">TextView</string>
+    <string name="button">Button</string>
+</resources>
